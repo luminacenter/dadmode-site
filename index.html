@@ -115,11 +115,14 @@
   <!-- Chatbase Floating Chatbot Script -->
   <script>
   function toggleDadGPT() {
-    try {
-      window.chatbase("toggleChat");
-    } catch (e) {
-      console.warn("Chatbase is not ready yet.", e);
-    }
+    const tryToggle = () => {
+      if (typeof window.chatbase === 'function') {
+        window.chatbase("toggleChat");
+      } else {
+        setTimeout(tryToggle, 500);
+      }
+    };
+    tryToggle();
   }
 
   (function(){
