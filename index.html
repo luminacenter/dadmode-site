@@ -63,6 +63,7 @@
       font-weight: 600;
       margin-top: 1rem;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .cta-button:hover {
@@ -86,7 +87,7 @@
   <section class="section">
     <h2>🤖 Try the DadGPT Assistant</h2>
     <p>Ask questions, get dad hacks, name ideas, nursery budgeting tips, and more — powered by smart AI tuned for modern fatherhood.</p>
-    <a href="#" class="cta-button" onclick="window.ChatbaseAPI && window.ChatbaseAPI.toggle(); return false;">Ask DadGPT</a>
+    <button class="cta-button" onclick="toggleDadGPT()">Ask DadGPT</button>
   </section>
 
   <section class="section">
@@ -113,6 +114,14 @@
 
   <!-- Chatbase Floating Chatbot Script -->
   <script>
+  function toggleDadGPT() {
+    if (window.ChatbaseAPI && typeof window.ChatbaseAPI.toggle === 'function') {
+      window.ChatbaseAPI.toggle();
+    } else {
+      console.warn("ChatbaseAPI is not ready yet.");
+    }
+  }
+
   (function(){
     if(!window.chatbase||window.chatbase("getState")!=="initialized"){
       window.chatbase=(...arguments)=>{
