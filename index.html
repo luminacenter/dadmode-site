@@ -115,15 +115,15 @@
   <!-- Chatbase Floating Chatbot Script -->
   <script>
   function toggleDadGPT() {
-    if (window.ChatbaseAPI && typeof window.ChatbaseAPI.toggle === 'function') {
-      window.ChatbaseAPI.toggle();
-    } else {
-      console.warn("ChatbaseAPI is not ready yet.");
+    try {
+      window.chatbase("toggleChat");
+    } catch (e) {
+      console.warn("Chatbase is not ready yet.", e);
     }
   }
 
   (function(){
-    if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+    if(!window.chatbase || window.chatbase("getState") !== "initialized"){
       window.chatbase=(...arguments)=>{
         if(!window.chatbase.q){window.chatbase.q=[]}
         window.chatbase.q.push(arguments)};
@@ -134,10 +134,11 @@
       script.src="https://www.chatbase.co/embed.min.js";
       script.id="XxFpiTrQnfTJBUODTfWA6";
       script.domain="www.chatbase.co";
-      script.setAttribute("defer", "true");
-      document.body.appendChild(script)
+      script.defer = true;
+      document.body.appendChild(script);
     };
-    if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}
+    if(document.readyState==="complete"){onLoad()}
+    else {window.addEventListener("load", onLoad)}
   })();
   </script>
 </body>
